@@ -3,6 +3,8 @@ package com.dionlan.algamoney.api.resource;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +32,7 @@ public class CategoryResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Category> create(@RequestBody Category category) {
+	public ResponseEntity<Category> create(@Valid @RequestBody Category category) {
 		Category categorySaved = repository.save(category);
 		return ResponseEntity.status(HttpStatus.CREATED).body(categorySaved);
 	}
