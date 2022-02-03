@@ -1,7 +1,6 @@
 package com.dionlan.algamoney.api.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dionlan.algamoney.api.event.ResourceCreatedEvent;
 import com.dionlan.algamoney.api.model.Category;
 import com.dionlan.algamoney.api.repository.CategoryRepository;
+import com.dionlan.algamoney.api.service.CategoryService;
 
 @RestController
 @RequestMapping("/categories")
@@ -27,6 +27,9 @@ public class CategoryResource {
 
 	@Autowired
 	private CategoryRepository repository;
+	
+	@Autowired
+	private CategoryService service;
 	
 	@Autowired
 	private ApplicationEventPublisher publisher;
@@ -38,10 +41,8 @@ public class CategoryResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Category> listById(@PathVariable Long id){
-		Optional<Category> category = repository.findById(id);
-		
-		return category != null ? ResponseEntity.ok(category.get()) : ResponseEntity.notFound().build();
+	public Category listById(@PathVariable Long id){
+		return service.findCategoryById(id);
 	}
 	
 	@PostMapping

@@ -1,7 +1,6 @@
 package com.dionlan.algamoney.api.resource;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -44,10 +43,9 @@ public class PersonResource {
 	}
 	
 	@GetMapping("/{id}")
-	public ResponseEntity<Person> listById(@Valid @PathVariable Long id) {
-		Optional<Person> person = repository.findById(id);
-
-		return person.isPresent() ? ResponseEntity.ok(person.get()) : ResponseEntity.notFound().build();
+	public Person listById(@Valid @PathVariable Long id) {
+		
+		return service.findPersonById(id);
 	}
 	
 	@PostMapping
@@ -71,9 +69,9 @@ public class PersonResource {
 		return ResponseEntity.ok(personSaved);
 	}
 	
-	@PutMapping("/{id}/ative")
+	@PutMapping("/{id}/active")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void updatePropertieAtive(@PathVariable Long id, @RequestBody Boolean ative) {
-		service.updatePropertieAtive(id, ative);
+	public void updatePropertieAtive(@PathVariable Long id, @RequestBody Boolean active) {
+		service.updatePropertieAtive(id, active);
 	}
 }
