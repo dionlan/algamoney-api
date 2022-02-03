@@ -47,7 +47,7 @@ public class TransactionResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Transaction> create(@RequestBody @Valid Transaction transaction, HttpServletResponse response) {
+	public ResponseEntity<Transaction> create(@Valid @RequestBody Transaction transaction, HttpServletResponse response) {
 		
 		Transaction transactionSaved = service.save(transaction);
 		
