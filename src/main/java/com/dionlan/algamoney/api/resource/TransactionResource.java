@@ -2,9 +2,11 @@ package com.dionlan.algamoney.api.resource;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dionlan.algamoney.api.event.ResourceCreatedEvent;
 import com.dionlan.algamoney.api.model.Transaction;
 import com.dionlan.algamoney.api.repository.TransactionRepository;
 import com.dionlan.algamoney.api.service.TransactionService;
@@ -24,6 +27,9 @@ public class TransactionResource {
 
 	@Autowired
 	private TransactionRepository repository;
+	
+	@Autowired
+	private ApplicationEventPublisher publisher;
 	
 	@Autowired
 	private TransactionService service;
@@ -41,9 +47,11 @@ public class TransactionResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Transaction> create(@RequestBody @Valid Transaction transaction) {
+	public ResponseEntity<Transaction> create(@RequestBody @Valid Transaction transaction, HttpServletResponse response) {
 		
 		Transaction transactionSaved = service.save(transaction);
+		
+		publisher.publishEvent(new ResourceCreatedEvent(this, response, transactionSaved.getId()));
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(transactionSaved);
 	}
