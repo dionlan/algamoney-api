@@ -3,9 +3,11 @@ package com.dionlan.algamoney.api.resource;
 import java.util.List;
 import java.util.Optional;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dionlan.algamoney.api.event.ResourceCreatedEvent;
 import com.dionlan.algamoney.api.model.Person;
 import com.dionlan.algamoney.api.repository.PersonRepository;
 
@@ -25,26 +28,27 @@ public class PersonResource {
 	@Autowired
 	private PersonRepository repository;
 	
-	@GetMapping
-	public ResponseEntity<List<Person>> list(){
-		List<Person> listPersons = repository.findAll();
-		return !listPersons.isEmpty() ? ResponseEntity.ok(repository.findAll()) : ResponseEntity.noContent().build();
-	}
+	@Autowired
+	private ApplicationEventPublisher publisher;
 	
-	@PostMapping
-	public ResponseEntity<Person> create(@Valid @RequestBody Person person) {
-		Person personCreate = repository.save(person);
-		return ResponseEntity.status(HttpStatus.CREATED).body(personCreate);
+	@GetMapping
+	public List<Person> list(){
+		return repository.findAll();
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Person> listById(@Valid @PathVariable Long id) {
 		Optional<Person> person = repository.findById(id);
+
+		return person != null ? ResponseEntity.ok(person.get()) : ResponseEntity.notFound().build();
+	}
+	
+	@PostMapping
+	public ResponseEntity<Person> create(@Valid @RequestBody Person person, HttpServletResponse response) {
+		Person personCreate = repository.save(person);
 		
-		if(person.isPresent()) {
-			return ResponseEntity.ok(person.get());
-		}
+		publisher.publishEvent(new ResourceCreatedEvent(this, response, personCreate.getId()));
 		
-		return ResponseEntity.notFound().build();
+		return ResponseEntity.status(HttpStatus.CREATED).body(personCreate);
 	}
 }
