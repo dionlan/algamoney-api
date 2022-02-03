@@ -24,5 +24,5 @@ public class Person {
 	private Address address;
 	
 	@NotNull
-	private Boolean ative;
+	private Boolean active;
 }

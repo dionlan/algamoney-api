@@ -8,14 +8,14 @@ CREATE TABLE person (
 	zipcode VARCHAR(255) DEFAULT NULL,
 	city VARCHAR(255) DEFAULT NULL,
 	state VARCHAR(255) DEFAULT NULL,
-	ative BOOLEAN DEFAULT NULL,
+	active BOOLEAN DEFAULT NULL,
 	
 	PRIMARY KEY(id)
 	
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, ative) values ('Dionlan Alves', "", "", "", "", "", "", "", true);
-INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, ative) values ('Afrânio de Jesus', "", "", "", "", "", "", "", true);
-INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, ative) values ('Rita Alves', "", "", "", "", "", "", "", true);
-INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, ative) values ('Eduardo Viana', "", "", "", "", "", "", "", true);
-INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, ative) values ('Sebastião Machado', "", "", "", "", "", "", "", true);
+INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, active) values ('Dionlan Alves', "", "", "", "", "", "", "", true);
+INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, active) values ('Afrânio de Jesus', "", "", "", "", "", "", "", true);
+INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, active) values ('Rita Alves', "", "", "", "", "", "", "", true);
+INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, active) values ('Eduardo Viana', "", "", "", "", "", "", "", true);
+INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, active) values ('Sebastião Machado', "", "", "", "", "", "", "", true);
