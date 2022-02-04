@@ -12,6 +12,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 
 import com.dionlan.algamoney.api.model.Transaction;
 import com.dionlan.algamoney.api.repository.filter.TransactionFilter;
@@ -22,16 +25,19 @@ public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 	private EntityManager manager;
 	
 	@Override
-	public List<Transaction> filter(TransactionFilter transactionFilter) {
+	public Page<Transaction> filter(TransactionFilter transactionFilter, Pageable pageable) {
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<Transaction> criteria = builder.createQuery(Transaction.class);	
 		Root<Transaction> root = criteria.from(Transaction.class);
 		
 		Predicate[] predicates = createConstraints(transactionFilter, builder, root);
 		criteria.where(predicates);
-		
+
 		TypedQuery<Transaction> query = manager.createQuery(criteria);
-		return query.getResultList();
+		
+		addConstraintsOfPagination(query, pageable);
+		
+		return new PageImpl<>(query.getResultList(), pageable, total(transactionFilter));
 	}
 	
 	private Predicate[] createConstraints(TransactionFilter transactionFilter, CriteriaBuilder builder, Root<Transaction> root) {
@@ -49,5 +55,25 @@ public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 		}
 		
 		return predicates.toArray(new Predicate[predicates.size()]);
+	}
+	
+	public void addConstraintsOfPagination(TypedQuery<Transaction> query, Pageable pageable) {
+		int currentPage = pageable.getPageNumber();
+		int totalRegistersPerPage = pageable.getPageSize();
+		int firstRegisterOfPage = currentPage * totalRegistersPerPage;
+		
+		query.setFirstResult(firstRegisterOfPage);
+		query.setMaxResults(totalRegistersPerPage); 
+	}
+	
+	public Long total(TransactionFilter transactionFilter) {
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<Long> criteria = builder.createQuery(Long.class);
+		Root<Transaction> root = criteria.from(Transaction.class);
+		Predicate[] predicates = createConstraints(transactionFilter, builder, root);
+		criteria.where(predicates);
+		criteria.select(builder.count(root));
+		
+		return manager.createQuery(criteria).getSingleResult();
 	}
 }
