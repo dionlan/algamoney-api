@@ -24,6 +24,7 @@ import com.dionlan.algamoney.api.event.ResourceCreatedEvent;
 import com.dionlan.algamoney.api.exceptionhandler.AlgamoneyExceptionHandler.Erro;
 import com.dionlan.algamoney.api.model.Transaction;
 import com.dionlan.algamoney.api.repository.TransactionRepository;
+import com.dionlan.algamoney.api.repository.filter.TransactionFilter;
 import com.dionlan.algamoney.api.service.TransactionService;
 import com.dionlan.algamoney.api.service.exception.PersonNonExistentOrInactiveException;
 
@@ -44,9 +45,8 @@ public class TransactionResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
-	public ResponseEntity<List<Transaction>> list(){
-		List<Transaction> transactions = repository.findAll();
-		return !transactions.isEmpty() ? ResponseEntity.ok(transactions) : ResponseEntity.notFound().build();
+	public List<Transaction> search(TransactionFilter transactionFilter){
+		return repository.filter(transactionFilter);
 	}
 	
 	@GetMapping("/{id}")
