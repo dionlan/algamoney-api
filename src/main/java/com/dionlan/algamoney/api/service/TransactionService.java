@@ -37,4 +37,8 @@ public class TransactionService {
 		}
 		return repository.save(transaction);
 	}
+	
+	public void delete(Long id) {
+		repository.deleteById(id);
+	}
 }
