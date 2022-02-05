@@ -31,9 +31,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				.withClient("angular")
 				.secret(passwordEncoder.encode("@ngul@r0")) // @ngul@r0
 				.scopes("read", "write")
-				.authorizedGrantTypes("password", "refresh_token")
-				.accessTokenValiditySeconds(20)
-				.refreshTokenValiditySeconds(3600 * 24);
+				.authorizedGrantTypes("password")
+				.refreshTokenValiditySeconds(1800);
 	}
 
 	@Override
@@ -41,7 +40,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints
 			.tokenStore(tokenStore())
 			.accessTokenConverter(accessTokenConverter())
-			.reuseRefreshTokens(false)
 			.authenticationManager(authenticationManager);
 			
 			
@@ -51,7 +49,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
 
-		accessTokenConverter.setSigningKey("3032885ba9cd6621bcc4e7d6b6c35c2b");
+		accessTokenConverter.setSigningKey("dionlan");
 
 		return accessTokenConverter;
 	}
