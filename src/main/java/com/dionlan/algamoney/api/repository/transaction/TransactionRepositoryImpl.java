@@ -11,10 +11,10 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.ObjectUtils;
 
 import com.dionlan.algamoney.api.model.Transaction;
 import com.dionlan.algamoney.api.repository.filter.TransactionFilter;
@@ -42,7 +42,7 @@ public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 	
 	private Predicate[] createConstraints(TransactionFilter transactionFilter, CriteriaBuilder builder, Root<Transaction> root) {
 		List<Predicate> predicates = new ArrayList<>();
-		if(!StringUtils.isEmpty(transactionFilter.getDescription())) {
+		if(!ObjectUtils.isEmpty(transactionFilter.getDescription())) {
 			predicates.add(builder.like(builder.lower(root.get("description")), "%" + transactionFilter.getDescription().toLowerCase() + "%" ));
 		}
 		

@@ -11,17 +11,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.dionlan.algamoney.api.event.ResourceCreatedEvent;
 
 @Component
-public class ResourceCreatedListener implements ApplicationListener<ResourceCreatedEvent>{
-
-	@Override
+public class ResourceCreatedListener implements ApplicationListener<ResourceCreatedEvent> {
+	
+    @Override
 	public void onApplicationEvent(ResourceCreatedEvent resourceCreatedEvent) {
 		HttpServletResponse response = resourceCreatedEvent.getResponse();
-		Long id = resourceCreatedEvent.getId();
+		Long codigo = resourceCreatedEvent.getCodigo();
 		
-		addHeaderLocation(response, id);
+		adicionarHeaderLocation(response, codigo);
 	}
 
-	private void addHeaderLocation(HttpServletResponse response, Long id) {
+	private void adicionarHeaderLocation(HttpServletResponse response, Long id) {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
 				.buildAndExpand(id).toUri();
 		response.setHeader("Location", uri.toASCIIString());

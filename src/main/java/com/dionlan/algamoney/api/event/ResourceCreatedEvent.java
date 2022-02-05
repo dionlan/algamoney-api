@@ -8,14 +8,22 @@ import lombok.Getter;
 
 @Getter
 public class ResourceCreatedEvent extends ApplicationEvent {
-
-	private static final long serialVersionUID = 1L;
-	private HttpServletResponse response;
-	private Long id;
+    private static final long serialVersionUID = 1L;
 	
-	public ResourceCreatedEvent(Object source, HttpServletResponse response, Long id) {
+	private HttpServletResponse response;
+	private Long codigo;
+
+	public ResourceCreatedEvent(Object source, HttpServletResponse response, Long codigo) {
 		super(source);
 		this.response = response;
-		this.id = id;
+		this.codigo = codigo;
+	}
+
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+
+	public Long getCodigo() {
+		return codigo;
 	}
 }
