@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     
 	/**
-	 * Autenticação do usuário  
+	 * User Authentication
 	 */
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
