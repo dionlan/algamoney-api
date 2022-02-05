@@ -28,13 +28,16 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 @Configuration
 @EnableWebSecurity
 public class ResourceServerConfig extends WebSecurityConfigurerAdapter{
-     
+    
+	/**
+	 * Autenticação do usuário  
+	 */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .withUser("admin")
                 .password("admin")
-                .roles("ROLE");
+                .roles("ADMIN");
     }
 
     @Override
