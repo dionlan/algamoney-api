@@ -36,14 +36,14 @@ public class Transaction {
 	private String description;
 	
 	@NotNull
-	@Column(name = "date_due")
+	@Column(name = "due_date")
 	private LocalDate dateDue;
 	
-	@Column(name = "date_payment")
+	@Column(name = "payment_date")
 	private LocalDate datePayment;
 	
 	@NotNull
-	private BigDecimal value;
+	private BigDecimal amount;
 	
 	private String observation;
 	

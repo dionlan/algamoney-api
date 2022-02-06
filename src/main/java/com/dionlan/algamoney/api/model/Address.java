@@ -11,7 +11,7 @@ import lombok.Data;
 @Embeddable
 public class Address {
 
-	private String logradoure;
+	private String street;
 	
 	@Column(name = "address_number")
 	private String number;

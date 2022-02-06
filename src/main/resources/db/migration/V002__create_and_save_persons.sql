@@ -1,20 +1,20 @@
 CREATE TABLE person (
 	id BIGINT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(255) NOT NULL,
-	logradoure VARCHAR(255) DEFAULT NULL,
-	number VARCHAR(255) DEFAULT NULL,
+	street VARCHAR(255) DEFAULT NULL,
+	address_number VARCHAR(255) DEFAULT NULL,
 	complement VARCHAR(255) DEFAULT NULL,
 	district VARCHAR(255) DEFAULT NULL,
-	zipcode VARCHAR(255) DEFAULT NULL,
+	zip_code VARCHAR(255) DEFAULT NULL,
 	city VARCHAR(255) DEFAULT NULL,
 	state VARCHAR(255) DEFAULT NULL,
-	active BOOLEAN DEFAULT NULL,
+	active BOOLEAN NOT NULL,
 	
 	PRIMARY KEY(id)
 	
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO person (name, logradoure, number, complement, district, zipcode, city, state, active) values 
+INSERT INTO person (name, street, address_number, complement, district, zip_code, city, state, active) values 
 ('João Silva', 'Rua do Abacaxi', '10', null, 'Brasil', '38.400-12', 'Uberlândia', 'MG', true),
 ('Maria Rita', 'Rua do Sabiá', '110', 'Apto 101', 'Colina', '11.400-12', 'Ribeirão Preto', 'SP', true),
 ('Pedro Santos', 'Rua da Bateria', '23', null, 'Morumbi', '54.212-12', 'Goiânia', 'GO', true),
