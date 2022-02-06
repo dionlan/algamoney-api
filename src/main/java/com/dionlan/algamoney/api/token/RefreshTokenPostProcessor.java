@@ -25,7 +25,7 @@ import com.dionlan.algamoney.api.config.property.AlgamoneyApiProperty;
 public class RefreshTokenPostProcessor implements ResponseBodyAdvice<OAuth2AccessToken> {
 
 	@Autowired
-	private AlgamoneyApiProperty algamoneyApiProperty;
+	private AlgamoneyApiProperty algamoneyApiProperty; //retorna a seguranca configurada no arquivo de propriedades
 	
 	@Override
 	public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {

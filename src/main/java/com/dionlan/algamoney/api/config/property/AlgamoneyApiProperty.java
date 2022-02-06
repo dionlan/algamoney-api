@@ -2,7 +2,12 @@ package com.dionlan.algamoney.api.config.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("algaworks")
+/**
+ * Propriedades que serão configuradas em ambiente externo para produção
+ * @author dius_
+ *
+ */
+@ConfigurationProperties("algamoney")
 public class AlgamoneyApiProperty {
 
 	private String allowedOrigin;

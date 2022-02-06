@@ -24,7 +24,7 @@ public class TokenResource {
 	public void revoke(HttpServletRequest req, HttpServletResponse resp) {
 		Cookie cookie = new Cookie("refreshToken", null); //refreshToken = null
 		cookie.setHttpOnly(true);
-		cookie.setSecure(algamoneyApiProperty.getSecurity().isEnableHttps());
+		cookie.setSecure(algamoneyApiProperty.getSecurity().isEnableHttps()); //retorna a seguranca configurada no arquivo de propriedades
 		cookie.setPath(req.getContextPath() + "/oauth/token");
 		cookie.setMaxAge(0);
 		
