@@ -18,6 +18,7 @@ import org.springframework.util.ObjectUtils;
 
 import com.dionlan.algamoney.api.model.Transaction;
 import com.dionlan.algamoney.api.repository.filter.TransactionFilter;
+import com.dionlan.algamoney.api.repository.projection.TransactionSummary;
 
 public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 
@@ -34,6 +35,26 @@ public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 		criteria.where(predicates);
 
 		TypedQuery<Transaction> query = manager.createQuery(criteria);
+		
+		addConstraintsOfPagination(query, pageable);
+		
+		return new PageImpl<>(query.getResultList(), pageable, total(transactionFilter));
+	}
+	
+	@Override
+	public Page<TransactionSummary> filterSummary(TransactionFilter transactionFilter, Pageable pageable) {	
+		
+		CriteriaBuilder builder = manager.getCriteriaBuilder();
+		CriteriaQuery<TransactionSummary> criteria = builder.createQuery(TransactionSummary.class);
+		Root<Transaction> root = criteria.from(Transaction.class);
+		criteria.select(builder.construct(TransactionSummary.class, 
+						root.get("id"), root.get("description"), root.get("dateDue"), root.get("dateUntil"), root.get("datePayment"), 
+						root.get("amount"), root.get("type"), root.get("category"), root.get("person")));
+		
+		Predicate[] predicates = createConstraints(transactionFilter, builder, root);
+		criteria.where(predicates);
+
+		TypedQuery<TransactionSummary> query = manager.createQuery(criteria);
 		
 		addConstraintsOfPagination(query, pageable);
 		
@@ -57,7 +78,7 @@ public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 	
-	public void addConstraintsOfPagination(TypedQuery<Transaction> query, Pageable pageable) {
+	public void addConstraintsOfPagination(TypedQuery<?> query, Pageable pageable) {
 		int currentPage = pageable.getPageNumber();
 		int totalRegistersPerPage = pageable.getPageSize();
 		int firstRegisterOfPage = currentPage * totalRegistersPerPage;
