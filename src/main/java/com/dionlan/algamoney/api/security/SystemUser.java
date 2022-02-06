@@ -5,21 +5,21 @@ import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.dionlan.algamoney.api.model.UserPermission;
+import com.dionlan.algamoney.api.model.AppUser;
 
 public class SystemUser extends User {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private UserPermission userPermission;
+	private AppUser appUser;
 	
-	public SystemUser(UserPermission userPermission, Collection<? extends GrantedAuthority> authorities) {		
-		super(userPermission.getEmail(), userPermission.getPassword(), authorities);
-		this.userPermission = userPermission;
+	public SystemUser(AppUser appUser, Collection<? extends GrantedAuthority> authorities) {		
+		super(appUser.getEmail(), appUser.getPassword(), authorities);
+		this.appUser = appUser;
 	}
 
-	public UserPermission getUserPermission() {
-		return userPermission;
+	public AppUser getAppUser() {
+		return appUser;
 	}
 	
 

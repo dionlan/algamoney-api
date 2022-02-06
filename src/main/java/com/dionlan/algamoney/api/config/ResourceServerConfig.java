@@ -17,7 +17,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/categories").permitAll()
+				.antMatchers("/categories").permitAll() //@PreAuthorize("hasAuthority('ROLE_SEARCH_CATEGORY')") tem prioridade, ou seja, agora é necessária autorização para acessar as categorias
 				.anyRequest().authenticated()
 				.and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()

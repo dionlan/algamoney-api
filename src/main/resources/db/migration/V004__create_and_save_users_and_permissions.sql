@@ -32,7 +32,7 @@ INSERT INTO permission (id, description) values (6, 'ROLE_REGISTER_TRANSACTION')
 INSERT INTO permission (id, description) values (7, 'ROLE_REMOVE_TRANSACTION');
 INSERT INTO permission (id, description) values (8, 'ROLE_SEARCH_TRANSACTION');
 
--- admin
+-- admin (grant all permissions)
 INSERT INTO user_permission (id_user, id_permission) values (1, 1);
 INSERT INTO user_permission (id_user, id_permission) values (1, 2);
 INSERT INTO user_permission (id_user, id_permission) values (1, 3);
@@ -42,7 +42,7 @@ INSERT INTO user_permission (id_user, id_permission) values (1, 6);
 INSERT INTO user_permission (id_user, id_permission) values (1, 7);
 INSERT INTO user_permission (id_user, id_permission) values (1, 8);
 
--- maria
+-- maria (only search SEARCH_CATEGORY, SEARCH_PERSON and SEARCH_TRANSACTION) 
 INSERT INTO user_permission (id_user, id_permission) values (2, 2);
 INSERT INTO user_permission (id_user, id_permission) values (2, 5);
 INSERT INTO user_permission (id_user, id_permission) values (2, 8);

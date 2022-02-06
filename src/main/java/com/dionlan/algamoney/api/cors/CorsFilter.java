@@ -18,6 +18,14 @@ import org.springframework.stereotype.Component;
 
 import com.dionlan.algamoney.api.config.property.AlgamoneyApiProperty;
 
+/**
+ * Política de segurança em que que JavaScript presente nos browsers só permite fazer requisições para a mesma origem / domínio / host
+ * @author dius_
+ * CORS - Cross-Origin HTTP Request, por padrão a política CORS é bloqueado. Por isso é necessário adicionar a exceção a origem desejada.
+ * 1 - O browser envia uma requisição OPTIONS (preflighted) ao servidor para saber saber quais requisições estão permitidas. 
+ * Se estiver habilitado, é realizado outra requição com o verbo solicitado anteriormente (GET, POST, PUT, DELETE, PATCH, etc)
+ * No Spring @CrossOrigin(maxAge = 10, origins={ "http://localhost:8080/" }) anotado na classe controladora ou no método específico
+ */
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter implements Filter {
