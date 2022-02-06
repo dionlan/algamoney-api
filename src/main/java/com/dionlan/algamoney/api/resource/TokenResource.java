@@ -19,9 +19,10 @@ public class TokenResource {
 	@Autowired
 	private AlgamoneyApiProperty algamoneyApiProperty;
 
+	//revoga / invalida o token; DELETE do token na url /tokens/revoke 
 	@DeleteMapping("/revoke")
 	public void revoke(HttpServletRequest req, HttpServletResponse resp) {
-		Cookie cookie = new Cookie("refreshToken", null);
+		Cookie cookie = new Cookie("refreshToken", null); //refreshToken = null
 		cookie.setHttpOnly(true);
 		cookie.setSecure(algamoneyApiProperty.getSecurity().isEnableHttps());
 		cookie.setPath(req.getContextPath() + "/oauth/token");
