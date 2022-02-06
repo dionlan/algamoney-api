@@ -12,15 +12,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-//@Profile("basic-security")
-//@EnableWebSecurity  extends WebSecurityConfigurerAdapter
-public class BasicSecurityConfig {
-/*
+@Profile("basic-security")
+@EnableWebSecurity
+public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
 	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 	}
 	
@@ -39,6 +39,7 @@ public class BasicSecurityConfig {
 			.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
-				.csrf().disable();
-	} */
+			.csrf().disable();
+	}
+	
 }
