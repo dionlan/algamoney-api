@@ -1,4 +1,4 @@
-package com.dionlan.algamoney.api.security;
+package com.dionlan.algamoney.api.security.util;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
