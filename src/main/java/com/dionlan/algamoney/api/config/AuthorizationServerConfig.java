@@ -19,6 +19,13 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.dionlan.algamoney.api.config.token.CustomTokenEnhancer;
 
+/**
+ * Classe para auxiliar o front no tester na alternancia entre a seguranca basic_security ou oauth-security.
+ * A escolha eh feira no application.properties. Carrega essa classe ou a BasicSecurity, que eh basic-security;
+ * spring.profiles.active=oauth-security //gera o token barear. Authorization Bearer + token
+ * @author dius_
+ *
+ */
 @Profile("oauth-security")
 @Configuration
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {

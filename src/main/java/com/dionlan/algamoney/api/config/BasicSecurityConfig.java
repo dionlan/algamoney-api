@@ -12,6 +12,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * Classe para auxiliar o front no tester na alternancia entre a seguranca basic_security ou oauth-security.
+ * A escolha eh feira no application.properties. Carrega essa classe ou a AuthorizationServerConfig, que eh oauth-security;
+ * @author dius_
+ * spring.profiles.active=basic-security //Autorization Basic Auth
+ */
 @Profile("basic-security")
 @EnableWebSecurity
 public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
