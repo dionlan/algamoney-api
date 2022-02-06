@@ -2,7 +2,7 @@ package com.dionlan.algamoney.api.config.property;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-//@ConfigurationProperties("algaworks")
+@ConfigurationProperties("algaworks")
 public class AlgamoneyApiProperty {
 
 	private String allowedOrigin;
@@ -24,7 +24,6 @@ public class AlgamoneyApiProperty {
 	public void setAllowedOrigin(String allowedOrigin) {
 		this.allowedOrigin = allowedOrigin;
 	}
-
 	
 	public static class Security {
 
@@ -37,7 +36,6 @@ public class AlgamoneyApiProperty {
 		public void setEnableHttps(boolean enableHttps) {
 			this.enableHttps = enableHttps;
 		}
-
 	}
 	
 	public static class Mail {
@@ -74,6 +72,5 @@ public class AlgamoneyApiProperty {
 		public void setPassword(String password) {
 			this.password = password;
 		}		
-		
 	}
 }

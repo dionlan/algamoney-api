@@ -13,8 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 //@Profile("basic-security")
-//@EnableWebSecurity extends WebSecurityConfigurerAdapter
-public class BasicSecurityConfig  {
+//@EnableWebSecurity  extends WebSecurityConfigurerAdapter
+public class BasicSecurityConfig {
 /*
 	@Autowired
 	private UserDetailsService userDetailsService;
@@ -40,6 +40,5 @@ public class BasicSecurityConfig  {
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and()
 				.csrf().disable();
-	}
-	*/
+	} */
 }

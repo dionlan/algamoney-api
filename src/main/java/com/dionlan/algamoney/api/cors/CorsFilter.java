@@ -15,10 +15,10 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-//@Component
-//@Order(Ordered.HIGHEST_PRECEDENCE) implements Filter 
-public class CorsFilter {
-	/*
+@Component
+@Order(Ordered.HIGHEST_PRECEDENCE)
+public class CorsFilter  implements Filter {
+	
 	private String originPermitida = "http://localhost:8000"; //TODO: Configurar para diferemtes ambientes
 
 	@Override
@@ -29,7 +29,7 @@ public class CorsFilter {
 		/**
 		 * header enviado sempre, em todas as requisições da resposta
 		 */
-	/*
+	
 		response.setHeader("Access-Control-Allow-Origin", originPermitida);
 		response.setHeader("Access-Control-Allow-Credentials", "true");
 		
@@ -53,5 +53,5 @@ public class CorsFilter {
 	@Override
 	public void init(FilterConfig arg0) throws ServletException{
 		
-	} */
+	}
 }
