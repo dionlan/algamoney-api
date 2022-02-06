@@ -42,14 +42,14 @@ public class TransactionRepositoryImpl implements TransactionRepositoryQuery{
 	}
 	
 	@Override
-	public Page<TransactionSummary> filterSummary(TransactionFilter transactionFilter, Pageable pageable) {	
+	public Page<TransactionSummary> summary(TransactionFilter transactionFilter, Pageable pageable) {	
 		
 		CriteriaBuilder builder = manager.getCriteriaBuilder();
 		CriteriaQuery<TransactionSummary> criteria = builder.createQuery(TransactionSummary.class);
 		Root<Transaction> root = criteria.from(Transaction.class);
 		criteria.select(builder.construct(TransactionSummary.class, 
-						root.get("id"), root.get("description"), root.get("dateDue"), root.get("dateUntil"), root.get("datePayment"), 
-						root.get("amount"), root.get("type"), root.get("category"), root.get("person")));
+						root.get("id"), root.get("description"), root.get("dateDue"), root.get("datePayment"), 
+						root.get("amount"), root.get("transactionType"), root.get("category").get("name"), root.get("person").get("name")));
 		
 		Predicate[] predicates = createConstraints(transactionFilter, builder, root);
 		criteria.where(predicates);

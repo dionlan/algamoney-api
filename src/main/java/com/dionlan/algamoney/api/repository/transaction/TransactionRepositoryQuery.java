@@ -10,5 +10,5 @@ import com.dionlan.algamoney.api.repository.projection.TransactionSummary;
 public interface TransactionRepositoryQuery  {
 
 	Page<Transaction> filter(TransactionFilter transactionFilter, Pageable pageable);
-	Page<TransactionSummary> filterSummary(TransactionFilter transactionFilter, Pageable pageable);
+	Page<TransactionSummary> summary(TransactionFilter transactionFilter, Pageable pageable);
 }

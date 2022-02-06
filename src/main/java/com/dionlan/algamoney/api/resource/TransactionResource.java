@@ -30,6 +30,7 @@ import com.dionlan.algamoney.api.exceptionhandler.AlgamoneyExceptionHandler.Erro
 import com.dionlan.algamoney.api.model.Transaction;
 import com.dionlan.algamoney.api.repository.TransactionRepository;
 import com.dionlan.algamoney.api.repository.filter.TransactionFilter;
+import com.dionlan.algamoney.api.repository.projection.TransactionSummary;
 import com.dionlan.algamoney.api.service.TransactionService;
 import com.dionlan.algamoney.api.service.exception.PersonNonExistentOrInactiveException;
 
@@ -50,19 +51,25 @@ public class TransactionResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
-	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and @oauth2.hasScope('read')")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and #oauth2.hasScope('read')")
 	public Page<Transaction> search(TransactionFilter transactionFilter, Pageable pageable){
 		return repository.filter(transactionFilter, pageable);
 	}
 	
+	@GetMapping(params = "summary")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and #oauth2.hasScope('read')")
+	public Page<TransactionSummary> summay(TransactionFilter transactionFilter, Pageable pageable){
+		return repository.summary(transactionFilter, pageable);
+	}
+	
 	@GetMapping("/{id}")
-	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and @oauth2.hasScope('read')")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and #oauth2.hasScope('read')")
 	public Transaction listById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping
-	@PreAuthorize("hasAuthority('ROLE_REGISTER_TRANSACTION') and @oauth2.hasScope('write')")
+	@PreAuthorize("hasAuthority('ROLE_REGISTER_TRANSACTION') and #oauth2.hasScope('write')")
 	public ResponseEntity<Transaction> create(@Valid @RequestBody Transaction transaction, HttpServletResponse response) {
 		Transaction transactionSaved = service.save(transaction);
 		publisher.publishEvent(new ResourceCreatedEvent(this, response, transactionSaved.getId()));
