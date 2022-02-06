@@ -19,7 +19,7 @@ public class Address {
 	private String complement;
 	private String district;
 	
-	@Column(name = "zipcode")
+	@Column(name = "zip_code")
 	private String zipCode;
 	
 	@ManyToOne
