@@ -14,6 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,16 +50,19 @@ public class TransactionResource {
 	private MessageSource messageSource;
 	
 	@GetMapping
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and @oauth2.hasScope('read')")
 	public Page<Transaction> search(TransactionFilter transactionFilter, Pageable pageable){
 		return repository.filter(transactionFilter, pageable);
 	}
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_SEARCH_TRANSACTION') and @oauth2.hasScope('read')")
 	public Transaction listById(@PathVariable Long id) {
 		return service.findById(id);
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasAuthority('ROLE_REGISTER_TRANSACTION') and @oauth2.hasScope('write')")
 	public ResponseEntity<Transaction> create(@Valid @RequestBody Transaction transaction, HttpServletResponse response) {
 		Transaction transactionSaved = service.save(transaction);
 		publisher.publishEvent(new ResourceCreatedEvent(this, response, transactionSaved.getId()));
@@ -67,6 +71,7 @@ public class TransactionResource {
 	
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasAuthority('ROLE_REMOVE_TRANSACTION') and @oauth2.hasScope('write')")
 	public void remove(@PathVariable Long id) {
 		service.delete(id);
 	}
