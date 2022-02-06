@@ -14,6 +14,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.Data;
 
 /**
@@ -45,8 +48,9 @@ public class Transaction {
 	private String observation;
 	
 	@NotNull
+	@Column(name = "transaction_type")
 	@Enumerated(EnumType.STRING)
-	private TransactionType type;
+	private TransactionType transactionType;
 	
 	@NotNull
 	@ManyToOne
@@ -56,6 +60,11 @@ public class Transaction {
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "id_person")
+	@JsonIgnoreProperties("contacts")
 	private Person person;
 	
+	@JsonIgnore
+	public boolean isIncome() {
+		return TransactionType.RECEITA.equals(transactionType);
+	}
 }

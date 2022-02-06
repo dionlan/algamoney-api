@@ -12,10 +12,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Profile("basic-security")
-@EnableWebSecurity
-public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
-
+//@Profile("basic-security")
+//@EnableWebSecurity extends WebSecurityConfigurerAdapter
+public class BasicSecurityConfig  {
+/*
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
@@ -41,5 +41,5 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 				.csrf().disable();
 	}
-	
+	*/
 }

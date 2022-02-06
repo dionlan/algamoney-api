@@ -18,10 +18,10 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
-public class RefreshTokenCookiePreProcessorFilter implements Filter{
-
+//@Component
+//@Order(Ordered.HIGHEST_PRECEDENCE) implements Filter
+public class RefreshTokenCookiePreProcessorFilter {
+/*
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
@@ -68,5 +68,5 @@ public class RefreshTokenCookiePreProcessorFilter implements Filter{
 			return map;
 		}
 		
-	}
+	} */
 }

@@ -19,28 +19,28 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.dionlan.algamoney.api.config.token.CustomTokenEnhancer;
 
-@Profile("oauth-security")
-@Configuration
-public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
-
-	@Autowired
+//@Profile("oauth-security")
+//@Configuration extends AuthorizationServerConfigurerAdapter
+public class AuthorizationServerConfig  {
+/*
+	//@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	@Autowired
+	//@Autowired
 	private UserDetailsService userDetailsService;
 		
-	@Override
+	//@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
 		clients.inMemory()
 				.withClient("angular")
-				.secret("$2a$10$4CvdsdqhNu/A1ERtlyqOYeSbwnRbL7xCbPclZ7k3o6HvWw0oU3v1u") // @ngul@r0				
+				.secret("$2a$10$JJOYZTeM0rNIwHqKy6mCveLVjL5LKX3xqJZkjSf5N1.hGCLzMKdim") // @ngul@r0				
 				.scopes("read", "write")
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(3600)
 				.refreshTokenValiditySeconds(3600 * 24)
 			.and()
 				.withClient("mobile")
-				.secret("$2a$10$KJRZ.d9lgifvJU420wX7Oeb2sA3mgnGjv9iyUWNqcN1RxjXnKfcKK") // m0b1l30
+				.secret("$2a$10$emn55BqlT0gieAONV9QINe/upc0kVeCXe8xqtnpcHMO.98.Zq/.f6") // m0b1l30
 				.scopes("read")
 				.authorizedGrantTypes("password", "refresh_token")
 				.accessTokenValiditySeconds(3600)
@@ -63,7 +63,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
-		accessTokenConverter.setSigningKey("algamoney");
+		accessTokenConverter.setSigningKey("algaworks");
 		return accessTokenConverter;
 	}
 
@@ -76,5 +76,5 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	public TokenEnhancer tokenEnhancer() {
 	    return new CustomTokenEnhancer();
 	}
-	
+	*/
 }
