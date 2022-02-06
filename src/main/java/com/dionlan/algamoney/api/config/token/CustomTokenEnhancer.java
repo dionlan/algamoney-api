@@ -3,8 +3,7 @@ package com.dionlan.algamoney.api.config.token;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.common.DefaultOAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
@@ -14,10 +13,12 @@ public class CustomTokenEnhancer implements TokenEnhancer {
 
 	@Override
 	public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {	
+		User systemUser = (User) authentication.getPrincipal();
+		//Authentication systemUser = SecurityContextHolder.getContext().getAuthentication();
 		
-		Authentication systemUser = SecurityContextHolder.getContext().getAuthentication();
 		Map<String, Object> addInfo = new HashMap<>();
-		addInfo.put("name", systemUser.getName());
+		addInfo.put("name", systemUser.getUsername());
+		
 		((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(addInfo);
 		return accessToken;
 	}
